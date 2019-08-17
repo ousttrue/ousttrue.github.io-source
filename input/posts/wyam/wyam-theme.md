@@ -54,3 +54,8 @@ config.yml も `#theme BlogTemplate` とする。
 
 * scss(wyamが対応している)
 * highlight.js (phantom themeからコピー)
+
+### ToDo
+
+* https://konpa.github.io/devicon/
+* http://fizzed.com/oss/font-mfizz
