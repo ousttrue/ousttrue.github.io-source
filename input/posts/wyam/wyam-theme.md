@@ -49,3 +49,8 @@ config.yml も `#theme BlogTemplate` とする。
 
 日本語が文字化けするので、 `_Layout.cshtml` に `<meta charset="UTF-8">` だけ足す。
 他とは、適当にやってみる。
+
+## 作業メモ
+
+* scss(wyamが対応している)
+* highlight.js (phantom themeからコピー)

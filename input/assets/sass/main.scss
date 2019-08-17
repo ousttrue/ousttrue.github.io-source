@@ -1,16 +1,107 @@
-header {
-    background-color: aliceblue;
+$header_color: rgb(11, 119, 146);
+$header_font_color:white;
+$main_color: rgb(240, 252, 255);
+$main_font_color: rgb(39, 39, 39);
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
 }
 
-footer {
-    background-color: greenyellow;
+body {
+    display: grid;
+    grid-template-areas:
+        "header"
+        "nav"
+        "main"
+    ;
+    grid-template-rows: 64px 32px 1fr;
+}
+
+header {
+    grid-area: header;
+    padding-left: 1em;
+    background-color: $header_color;
+    color: $header_font_color;
+
+    a {
+        text-decoration: none;
+        color: $header_font_color;
+    }
+
+    h1 {
+        margin: 0.5em 0;
+    }
 }
 
 nav {
-    background-color: khaki;
+    grid-area: nav;
+    background-color: $header_color;
+    color: $header_font_color;
+
+    a {
+        text-decoration: none;
+        color: $header_font_color;
+    }
+
+    ur {
+        letter-spacing: -.4em;
+        height: 100%;
+
+        li {
+            box-sizing: border-box;
+            letter-spacing: 0;
+            margin: 0;
+            border: 1px solid black;
+            display: inline-block;
+            text-align: center;
+            width: 8em;
+            height: 100%;
+
+            a {
+                padding-top: 0.3em;
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            a:hover {
+                background-color: $header_font_color;
+                color: $header_color;
+            }
+        }
+    }
 }
 
-article {
-    background-color: darkgray;
-    width: 700px;
+main {
+    grid-area: main;
+    background-color: $main_color;
+    color: $main_font_color;
+    overflow-y: auto;
+
+    article {
+        width: 700px;
+        margin: 0 auto;
+
+        pre {
+            background-color: #f0f0f0;
+            padding: 1em;
+            border: solid 1px;
+            border-radius: 0.3em;
+            overflow-x: auto;
+        }
+    }
+}
+
+div.shadow {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 0;
+    background-color: black;
+    box-shadow: 0px 0px 10px 3px black;
 }

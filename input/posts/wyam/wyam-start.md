@@ -198,6 +198,8 @@ launch.json を作成して F5 でブラウザを開く。
 
 ## 参考
 
+* https://www.staticgen.com/wyam
+
 * [静的サイトジェネレーターでC#を使いたかったからWyamを試したら最高だった](https://qiita.com/MeilCli/items/425a5436aced08ba7062)
 
 日本語で wyam に言及しているサイトはこれしかなかった。

@@ -8,10 +8,14 @@
         <meta charset="UTF-8">
         <title>@PageTitle</title>
         <link rel="stylesheet" href="@Context.GetLink("/assets/sass/main.css")" />
+        <link rel="stylesheet" href="@Context.GetLink("/assets/css/highlight.css")" />
     </head>
     <body>
         <header>
-        <h1><a href="@Context.GetLink("/")">@Context.String(BlogKeys.Title)</a>🚧<i class="fab fa-adn"></i></h1>
+        <h1><a href="@Context.GetLink("/")">@Context.String(BlogKeys.Title)</a></h1>
+        </header>
+
+        <nav>
         @if(Context.String(BlogKeys.Intro) != null)
         {            
             @if(Context.String(BlogKeys.Description) != null)
@@ -20,9 +24,8 @@
             }
             <span>@Context.String(BlogKeys.Intro)</span>
         }
-        </header>
 
-        <nav>
+        <ur>
         @{
             List<Tuple<string, string>> pages = Context
                 .Documents[Blog.Pages]
@@ -45,15 +48,16 @@
                 <li><a href="@(page.Item2)">@(page.Item1)</a></li>
             }
         }
+        </ul>
         </nav>
 
+        <main>
+        <div class="shadow"></div>
         @RenderBody()
+        </main>
 
-        <footer>
-            wyam
-        </footer>
-
-        <script src="@Context.GetLink("/assets/js/main.js")"></script>
+        <script src="@Context.GetLink("/assets/js/highlight.pack.js")"></script>   
+        <script>hljs.initHighlightingOnLoad();</script>
     </body>
 </html>
 
