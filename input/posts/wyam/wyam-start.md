@@ -1,5 +1,5 @@
 Title: wyam ことはじめ
-Published: 2019-08-17 12:00
+Published: 2019-08-17 12:00+9
 Tags: wyam
 ---
 ということで、またサイトを作りなおし。
