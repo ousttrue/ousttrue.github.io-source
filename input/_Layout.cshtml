@@ -1,14 +1,17 @@
+@{
+        string Title = Model.WithoutSettings.String(BlogKeys.Title);
+        string PageTitle = Context.String(BlogKeys.Title) + (string.IsNullOrWhiteSpace(Title) ? string.Empty : " - " + Title);
+}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>@Model.WithoutSettings.String(BlogKeys.Title)</title>
+        <title>@PageTitle</title>
+        <link href="@Context.GetLink("/assets/css/override.css")" rel="stylesheet" />
     </head>
     <body>
-        @if(Context.String(BlogKeys.Description) != null)
-        {
-            <a href="@Context.GetLink("/")"><h1>@Context.String(BlogKeys.Description)</h1> </a>
-        }
+        <header>
+        <h1><a href="@Context.GetLink("/")">@Context.String(BlogKeys.Title)</a>🚧</h1>
         @if(Context.String(BlogKeys.Intro) != null)
         {            
             @if(Context.String(BlogKeys.Description) != null)
@@ -17,7 +20,9 @@
             }
             <span>@Context.String(BlogKeys.Intro)</span>
         }
+        </header>
 
+        <nav>
         @{
             List<Tuple<string, string>> pages = Context
                 .Documents[Blog.Pages]
@@ -40,9 +45,13 @@
                 <li><a href="@(page.Item2)">@(page.Item1)</a></li>
             }
         }
+        </nav>
 
         @RenderBody()
 
+        <footer>
+            wyam
+        </footer>
     </body>
 </html>
 

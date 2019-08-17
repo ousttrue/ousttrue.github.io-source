@@ -43,7 +43,9 @@ ASP.Net のtemplateエンジン、 [Razor](https://docs.microsoft.com/en-us/aspn
 をクローンして、`themes/Blog/BlogTemplate/*` を `input` にコピーする。
 config.yml も `#theme BlogTemplate` とする。
 
-前頁共通のレイアウトが `_Layout.cshtml` 。 その中の、 `@RenderBody()` にルート(_Index.cshtml), 記事(_PostIndex.cshtml), 記事一覧(_Archive.cshtml, Tag.cshtml), タグ一覧(_Tags.cshtml)がはめ込まれる様子。`_PostIndex.cshtml` だけ `_PostLayout.cshtml` にはめ込む。これは、命名規則で決まっていそう。`_PostLayout.cshtml` はさらに `_Layout.cshtml` にはめ込む記述があった。
+> - **[Breaking Change]**[Refactoring] Moved Blog recipe theme file `/_PostIndex.cshtml` to `/_Archive.cshtml`, no other changes should be needed to this file in themes other than to move it - sorry for the rename (again), the first name was kind of dumb, this one is better
+
+前頁共通のレイアウトが `_Layout.cshtml` 。 その中の、 `@RenderBody()` にルート(_Index.cshtml), 記事(_PostLayout.cshtml), 記事一覧(_Archive.cshtml, Tag.cshtml), タグ一覧(_Tags.cshtml)がはめ込まれる様子。
 
 日本語が文字化けするので、 `_Layout.cshtml` に `<meta charset="UTF-8">` だけ足す。
 他とは、適当にやってみる。

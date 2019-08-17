@@ -1,0 +1,16 @@
+header {
+    background-color: aliceblue;
+}
+
+footer {
+    background-color: greenyellow;
+}
+
+nav {
+    background-color: khaki;
+}
+
+article {
+    background-color: darkgray;
+    width: 700px;
+}
