@@ -2,6 +2,7 @@ $header_color: rgb(11, 119, 146);
 $header_font_color:white;
 $main_color: rgb(240, 252, 255);
 $main_font_color: rgb(39, 39, 39);
+$code_border_color: rgb(195, 215, 218);
 
 html,
 body {
@@ -89,9 +90,16 @@ main {
         pre {
             background-color: #f0f0f0;
             padding: 1em;
-            border: solid 1px;
+            border: solid 1px $code_border_color;
             border-radius: 0.3em;
             overflow-x: auto;
+        }
+
+        p code {
+            background-color: #f0f0f0;
+            padding: 0.3em;
+            border: solid 1px $code_border_color;
+            border-radius: 0.3em;
         }
     }
 }
