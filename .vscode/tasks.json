@@ -11,7 +11,8 @@
                 "--watch", "--preview",
             ],
             "problemMatcher": [
-            ]
+            ],
+            "isBackground": true
         },
     ]
 }
