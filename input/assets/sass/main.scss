@@ -1,11 +1,14 @@
-$header_color: rgb(11, 119, 146);
+$header_color: rgb(98, 101, 102);
 $header_font_color:white;
-$main_color: rgb(240, 252, 255);
+$main_color: rgb(224, 237, 240);
 $main_font_color: rgb(39, 39, 39);
 $code_border_color: rgb(195, 215, 218);
 $article_color: white;
 $article_font_color: rgb(71, 71, 71);
 $article_border_color: rgb(155, 155, 155);
+$main_width: 800px;
+
+@import "base";
 
 html,
 body {
@@ -85,14 +88,11 @@ main {
     overflow-y: auto;
 
     article {
-        width: 700px;
-        margin: 0 auto;
+        width: $main_width;
+        margin: 1em auto;
         padding: 1em;
-        border-radius: 1em 1em 0 0;
 
-        background-color: $article_color;
         color: $article_font_color;
-        border: solid 1px $article_border_color;
 
         pre {
             background-color: #f0f0f0;
@@ -111,9 +111,14 @@ main {
     }
 
     article.grid {
+        margin: 0;
         width: 100%;
         height: 100%;
         overflow: hidden;
+        background-color: $article_color;
+        border: solid 1px $article_border_color;
+        border-radius: 1em;
+        box-shadow: 5px 5px 10px 0px rgb(129, 125, 161);
     }
 
     ul.grid {
@@ -127,6 +132,11 @@ main {
     }
 }
 
+div.clear {
+    clear: both;
+    height: 2em;
+}
+
 div.shadow {
     position: absolute;
     margin: 0;
@@ -135,36 +145,4 @@ div.shadow {
     height: 0;
     background-color: black;
     box-shadow: 0px 0px 10px 3px black;
-}
-
-blockquote {
-    position: relative;
-    padding: 30px 15px 8px 15px;
-    box-sizing: border-box;
-    font-style: italic;
-    background: #efefef;
-    color: #555;
-}
-blockquote:before{
-    display: inline-block;
-    position: absolute;
-    top: 5px;
-    left: 3px;
-    content: "“";
-    font-family: sans-serif;
-    color: #cfcfcf;
-    font-size: 90px;
-    line-height: 1;
-}
-blockquote p {
-    padding: 0;
-    margin: 10px 0;
-    line-height: 1.7;
-}
-
-blockquote cite {
-    display: block;
-    text-align: right;
-    color: #888888;
-    font-size: 0.9em;
 }

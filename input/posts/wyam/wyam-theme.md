@@ -18,7 +18,7 @@ cssとかの調整。
 
 `input` にテーマのファイルを直接コピーしたら反映された。
 
-`theme` フォルダでもよさそうなのだけど、 `input` しか `--watch` の対称にならないので、
+`theme` フォルダでもよさそうなのだけど、 `input` しか `--watch` の対象にならないので、
 `input` に入れてしまうのがよさそう。
 
 ```
@@ -57,6 +57,10 @@ config.yml も `#theme BlogTemplate` とする。
 
 * Model
 * Context
+
+```cshtml
+<a href="@Context.GetLink(Context.String(BlogKeys.PostsPath))">Back To posts</a>
+```
 
 ## 作業メモ
 
