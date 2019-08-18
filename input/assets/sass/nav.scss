@@ -1,0 +1,55 @@
+@import "const";
+
+nav {
+    grid-area: header;
+    margin: 0;
+    padding: 0;
+    background-color: $header_color;
+    color: $header_font_color;
+
+    a {
+        padding-top: 0.3em;
+        text-decoration: none;
+        color: $header_font_color;
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 100%;
+        display: inline-block;
+        height: 100%;
+    }
+
+    ul {
+        display: inline-block;
+        letter-spacing: -.4em;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+
+        li {
+            box-sizing: border-box;
+            letter-spacing: 0;
+            margin: 0;
+            border: 1px solid black;
+            display: inline-block;
+            text-align: center;
+            width: 8em;
+            height: 100%;
+
+            a.selected {
+                background-color: $header_font_color;
+                color: $header_color;
+            }
+
+            a:hover {
+                background-color: $header_font_color;
+                color: $header_color;
+            }
+        }
+    }
+}

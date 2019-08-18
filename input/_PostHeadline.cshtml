@@ -4,14 +4,15 @@
     var Tags = Model.Get<string[]>(BlogKeys.Tags) ?? new string[] {};
 }
 
-<a href="@Context.GetLink(Model)">
-    <h2>@Model.WithoutSettings.String(BlogKeys.Title)</h2>
-</a>
-<h3>Published @Published.ToShortDateString()</h3>
+<h6 class="date">@Published.ToShortDateString()</h6>
 
+<ul class="tags">
 @foreach (string tag in Tags.OrderBy(x => x)){ 
     IDocument tagDocument = Documents[Blog.Tags].FirstOrDefault(x => x.String(BlogKeys.Tag)== tag && x.Get<int>(Keys.CurrentPage) == 1); 
     if(tagDocument != null) {
-        <a href="@Context.GetLink(tagDocument)">@tag</a> 
+        <li><a class="tag" href="@Context.GetLink(tagDocument)">@tag</a></li>
     } 
 } 
+</ul>
+
+<h1 class="title"><a href="@Context.GetLink(Model)">@Model.WithoutSettings.String(BlogKeys.Title)</a></h1>

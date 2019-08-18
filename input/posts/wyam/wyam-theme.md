@@ -31,7 +31,7 @@ input
 
 ASP.Net のtemplateエンジン、 [Razor](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-2.2) で構成されていて拡張子は、 `cshtml` 。
 
-レイアウトはBlog Recipeが規定している。
+ファイル名は、Blog Recipeが規定している。
 
 サイトのルート(index), 各記事(post), 記事一覧(archive, tag), タグ一覧(tags)などがある。単純な例はこれ。
 
@@ -46,7 +46,7 @@ config.yml も `#theme BlogTemplate` とする。
 
 共通のレイアウトが `_Layout.cshtml` 。 その中の、 `@RenderBody()` にルート(_Index.cshtml), 記事(_PostLayout.cshtml), 記事一覧(_Archive.cshtml, _Tag.cshtml), タグ一覧(_Tags.cshtml)がはめ込まれる様子。
 
-`_PostIndex.cshtml` は廃止された。
+`_PostIndex.cshtml` は廃止されたので使われない。
 
 > - **[Breaking Change]**[Refactoring] Moved Blog recipe theme file `/_PostIndex.cshtml` to `/_Archive.cshtml`, no other changes should be needed to this file in themes other than to move it - sorry for the rename (again), the first name was kind of dumb, this one is better
 
@@ -66,9 +66,10 @@ config.yml も `#theme BlogTemplate` とする。
 
 * scss(wyamが対応している)
 * highlight.js (phantom themeからコピー)
-* 記事内のTOC
+* 旧記事を雑に復旧
 
 ### ToDo
 
+* 記事内のTOC
 * https://konpa.github.io/devicon/
 * http://fizzed.com/oss/font-mfizz

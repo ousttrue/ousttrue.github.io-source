@@ -1,13 +1,4 @@
-$header_color: rgb(98, 101, 102);
-$header_font_color:white;
-$main_color: rgb(224, 237, 240);
-$main_font_color: rgb(39, 39, 39);
-$code_border_color: rgb(195, 215, 218);
-$article_color: white;
-$article_font_color: rgb(71, 71, 71);
-$article_border_color: rgb(155, 155, 155);
-$main_width: 800px;
-
+@import "const";
 @import "base";
 
 html,
@@ -27,59 +18,7 @@ body {
     grid-template-rows: 32px 1fr;
 }
 
-nav {
-    grid-area: header;
-    margin: 0;
-    padding: 0;
-    background-color: $header_color;
-    color: $header_font_color;
-
-    a {
-        padding-top: 0.3em;
-        text-decoration: none;
-        color: $header_font_color;
-        display: block;
-        width: 100%;
-        height: 100%;
-    }
-
-    h1 {
-        margin: 0;
-        padding: 0;
-        font-size: 100%;
-        display: inline-block;
-        height: 100%;
-    }
-
-    ul {
-        display: inline-block;
-        letter-spacing: -.4em;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-
-        li {
-            box-sizing: border-box;
-            letter-spacing: 0;
-            margin: 0;
-            border: 1px solid black;
-            display: inline-block;
-            text-align: center;
-            width: 8em;
-            height: 100%;
-
-            a.selected {
-                background-color: $header_font_color;
-                color: $header_color;
-            }
-
-            a:hover {
-                background-color: $header_font_color;
-                color: $header_color;
-            }
-        }
-    }
-}
+@import "nav";
 
 main {
     grid-area: main;
@@ -93,6 +32,23 @@ main {
         padding: 1em;
 
         color: $article_font_color;
+
+        .date {
+            padding: 0;
+            margin: 0;
+        }
+
+        .title {
+            padding: 0;
+            margin: 0;
+            border-left: 8px solid;
+            border-bottom: 1px solid;
+            padding-left: 0.5em;
+
+            a {
+                text-decoration: none;
+            }
+        }
 
         pre {
             background-color: #f0f0f0;
@@ -121,14 +77,35 @@ main {
         box-shadow: 5px 5px 10px 0px rgb(129, 125, 161);
     }
 
-    ul.grid {
-        li {
-            float: left;
-            list-style: none;
-            margin: 2em;
-            width: 300px;
-            height: 300px;
+    ul.tags {
+        padding: 0;
+        margin: 0;
+    }
+
+    ul.tags>li {
+        display: inline-block;
+        list-style: none;
+        margin: 0.5em 1em 0.5em 0;
+
+        a {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            background-color: $tag_color;
+            color: $tag_font_color;
+            padding: 0.2em;
+            text-align: center;
+            border-radius: 0.3em;
         }
+    }
+
+    ul.grid>li {
+        float: left;
+        list-style: none;
+        margin: 2em;
+        width: 300px;
+        height: 300px;
     }
 }
 
