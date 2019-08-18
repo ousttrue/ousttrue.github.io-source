@@ -1,7 +1,12 @@
 <ul class="grid">
     @foreach(IDocument post in Model.DocumentList(Keys.PageDocuments))
     {
-        @Html.Partial("_PostSummary.cshtml", post)
+    <li>
+        <article class="grid">
+            @Html.Partial("_PostHeadline.cshtml", post)
+            @Html.Raw(post.String(BlogKeys.Excerpt))
+        </article>
+    </li>    
     }
 </ul>
 
