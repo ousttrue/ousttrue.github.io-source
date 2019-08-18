@@ -1,6 +1,10 @@
 @{
         string Title = Model.WithoutSettings.String(BlogKeys.Title);
         string PageTitle = Context.String(BlogKeys.Title) + (string.IsNullOrWhiteSpace(Title) ? string.Empty : " - " + Title);
+        string Self = Context.GetLink(Model);
+        if(Self == "/_Tags.cshtml"){
+            Self = "/tags";
+        }
 }
 <!DOCTYPE html>
 <html>
@@ -41,9 +45,15 @@
             {
                 pages.Insert(0, Tuple.Create("Archive", Context.GetLink(Context.String(BlogKeys.PostsPath) + "/index.html")));
             }
-            foreach(Tuple<string, string> page in pages)
+            foreach(var (title, url) in pages)
             {
-                <li><a href="@(page.Item2)">@(page.Item1)</a></li>
+                if(url==Self)
+                {
+                <li ><a href="@url" class="selected">@title</a></li>
+                }
+                else{
+                <li><a href="@url">@title</a></li>
+                }
             }
         }
         </ul>
@@ -51,9 +61,7 @@
 
         <main>
         <div class="shadow"></div>
-        <article>
         @RenderBody()
-        </article>
         </main>
 
         <script src="@Context.GetLink("/assets/js/highlight.pack.js")"></script>   

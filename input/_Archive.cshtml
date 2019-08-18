@@ -1,17 +1,11 @@
-<h1>@Model.WithoutSettings.String(BlogKeys.Title)</h1>
-
-<ul>
-    @foreach(var post in Model.DocumentList(Keys.PageDocuments)){
-
-    <li>
-        <a href="@Context.GetLink(post)">
-            <h2>@post.WithoutSettings.String(BlogKeys.Title)</h2>
-        </a>
-        @Html.Raw(post.String(BlogKeys.Excerpt))
-    </li>
-
+<ul class="grid">
+    @foreach(IDocument post in Model.DocumentList(Keys.PageDocuments))
+    {
+        @Html.Partial("../_PostSummary.cshtml", post)
     }
 </ul>
+
+<div style = "clear: both"></div>
 
 @if(Model.Bool(Keys.HasPreviousPage)) {
     <a href="@(Context.GetLink(Model.Document(Keys.PreviousPage)))"><span aria-hidden="true">&larr;</span> Newer</a> 

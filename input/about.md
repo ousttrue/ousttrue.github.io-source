@@ -1,7 +1,7 @@
 Title: About Me
 ---
 
-# About Me
+<article>
 
 プログラマー。
 
@@ -9,7 +9,8 @@ Title: About Me
 
 ## https://github.com/vrm-c/
 
-* https://github.com/vrm-c/vrm.dev
+* https://github.com/vrm-c/vrm.dev VRMドキュメント
+* https://github.com/vrm-c/vrm-specification VRM仕様
 * https://github.com/vrm-c/UniVRM (Unity3D) VRM実装
 
 ## https://github.com/ousttrue/
@@ -18,3 +19,5 @@ Title: About Me
 * https://github.com/ousttrue/msgpack-rpc-asio (c++) msgpack-rpc の asio(headeronly版) を使った TCP実装
 
 ## https://qiita.com/ousttrue
+
+</article>
