@@ -1,0 +1,13 @@
+@model IEnumerable<IDocument>
+
+@{
+    @foreach(var post in Model)
+    {
+    <li>
+        <article class="grid">
+            @Html.Partial("_PostHeadline.cshtml", post)
+            @Html.Raw(post.String(BlogKeys.Excerpt))
+        </article>
+    </li>    
+    }
+}

@@ -70,6 +70,7 @@ config.yml も `#theme BlogTemplate` とする。
 
 ### ToDo
 
+* 一覧をpageで分割
 * 記事内のTOC
 * https://konpa.github.io/devicon/
 * http://fizzed.com/oss/font-mfizz

@@ -1,21 +1,18 @@
-<ul class="grid">
-    @foreach(IDocument post in Model.DocumentList(Keys.PageDocuments))
+@{
+@foreach(IGrouping<int, IDocument> group in Model.DocumentList(Keys.PageDocuments)
+        .Where(x => x.ContainsKey(BlogKeys.Published))
+        .OrderByDescending(x => x.Get<DateTime>(BlogKeys.Published))
+        .GroupBy(x => x.Get<DateTime>(BlogKeys.Published).Year)
+        .OrderByDescending(x => x.Key))
     {
-    <li>
-        <article class="grid">
-            @Html.Partial("../_PostHeadline.cshtml", post)
-            @Html.Raw(post.String(BlogKeys.Excerpt))
-        </article>
-    </li>    
-    }
+        <h1>@group.Key</h1>
+        <hr />
+
+<ul class="grid">
+
+    @Html.Partial("../_PostList.cshtml", group)
+
 </ul>
-
 <div style = "clear: both"></div>
-
-@if(Model.Bool(Keys.HasPreviousPage)) {
-    <a href="@(Context.GetLink(Model.Document(Keys.PreviousPage)))"><span aria-hidden="true">&larr;</span> Newer</a> 
-} 
-
-@if(Model.Bool(Keys.HasNextPage)) {
-    <a href="@(Context.GetLink(Model.Document(Keys.NextPage)))">Older <span aria-hidden="true">&rarr;</span></a> 
+    }
 }

@@ -12,10 +12,24 @@
 
 <div style="clear: both"></div>
 
-@if(Model.Bool(Keys.HasPreviousPage)) {
-    <a href="@(Context.GetLink(Model.Document(Keys.PreviousPage)))"><span aria-hidden="true">&larr;</span> Newer</a> 
-} 
-
-@if(Model.Bool(Keys.HasNextPage)) {
-    <a href="@(Context.GetLink(Model.Document(Keys.NextPage)))">Older <span aria-hidden="true">&rarr;</span></a> 
+@if(!Context.Bool(BlogKeys.IndexPaging))
+{
+    <hr />
+    <h5>Older Posts</h5>
+    <ul class="list-unstyled">
+        @foreach(IDocument post in Documents[Blog.BlogPosts].Skip(Model.DocumentList(Keys.PageDocuments).Count).Take(4))
+        {        
+            // TODO: The skip above needs to line up with the number of posts on the index page
+            // Also turn this section off if the index is paged
+            <li><a href="@Context.GetLink(post)">@post.WithoutSettings.String(BlogKeys.Title)</a></li>
+        }
+    </ul>
+    @if(Context.Bool(BlogKeys.GenerateArchive))
+    {
+        <ul class="pager">
+            <li class="next">
+                <a href="@Context.GetLink(Context.String(BlogKeys.PostsPath))">Archive &rarr;</a>
+            </li>
+        </ul>
+    }
 }
