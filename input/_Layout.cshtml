@@ -11,11 +11,9 @@
         <link rel="stylesheet" href="@Context.GetLink("/assets/css/highlight.css")" />
     </head>
     <body>
-        <header>
-        <h1><a href="@Context.GetLink("/")">@Context.String(BlogKeys.Title)</a></h1>
-        </header>
-
         <nav>
+        <h1><a href="@Context.GetLink("/")">@Context.String(BlogKeys.Title)</a></h1>
+
         @if(Context.String(BlogKeys.Intro) != null)
         {            
             @if(Context.String(BlogKeys.Description) != null)
@@ -25,7 +23,7 @@
             <span>@Context.String(BlogKeys.Intro)</span>
         }
 
-        <ur>
+        <ul>
         @{
             List<Tuple<string, string>> pages = Context
                 .Documents[Blog.Pages]
@@ -53,7 +51,9 @@
 
         <main>
         <div class="shadow"></div>
+        <article>
         @RenderBody()
+        </article>
         </main>
 
         <script src="@Context.GetLink("/assets/js/highlight.pack.js")"></script>   

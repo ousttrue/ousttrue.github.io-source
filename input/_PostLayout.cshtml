@@ -4,7 +4,7 @@
     var Tags = Model.Get<string[]>(BlogKeys.Tags) ?? new string[] {};
 }
 
-<article>
+<div>
 
 <h2>@Model.WithoutSettings.String(BlogKeys.Title)</h2>
 <h3>Published @Published.ToShortDateString()</h3>
@@ -21,4 +21,4 @@
 
 @RenderBody()
 
-</article>
+</div>
