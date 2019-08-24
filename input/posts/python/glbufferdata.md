@@ -1,19 +1,23 @@
 Title: "PyOpenGLのglBufferDataにはどんなデータが渡せるのか"
 Published: 2017-8-1
-Tags: []
+Tags: ["python", "opengl"]
 ---
 
 glBufferDataに数字のlistを渡す場合以下のように渡せるがどうゆう実装なのか。
+
+```py
 vertices=[0, 1, 2] # x, y, z
 
 glBufferData(GL_ARRAY_BUFFER, 
         len(vertices)*4,  # byte size
         (ctypes.c_float*len(vertices))(*vertices), # 謎のctypes
         GL_STATIC_DRAW)
-
+```
 
 非常に読み辛かったがVisualStudioでステップ実行して動きを追ってみた。
-site-packages/OpenGL/GL/VERSION/GL_1_5.py
+
+```py
+# site-packages/OpenGL/GL/VERSION/GL_1_5.py
 @_lazy( glBufferData )
 def glBufferData( baseOperation, target, size, data=None, usage=None ):
     """Copy given data into the currently bound vertex-buffer-data object
@@ -37,9 +41,12 @@ def glBufferData( baseOperation, target, size, data=None, usage=None ):
     if size is None:
         size = ArrayDatatype.arrayByteCount( data )
     return baseOperation( target, size, data, usage )
+```
 
-site-packages/OpenGL/arrays/arraydatatype.py
 難関。デバッガ無しでは追えませんでした。
+
+```py
+# site-packages/OpenGL/arrays/arraydatatype.py
 class HandlerRegistry( dict ):
     def __init__( self, plugin_match ):
         self.match = plugin_match
@@ -82,8 +89,10 @@ class ArrayDatatype( object ):
         """Given a value, convert to preferred array representation"""
         return cls.getHandler(value).asArray( value, typeCode or cls.typeConstant ) # 1
     asArray = classmethod( logs.logOnFail( asArray, _log ) )
+```
 
-site-packages/OpenGL/plugins.py
+```py
+# site-packages/OpenGL/plugins.py
 class Plugin( object ):
     """Base class for plugins to be loaded"""
     loaded = False
@@ -103,9 +112,12 @@ class FormatHandler( Plugin ):
             if set and key in set:
                 return plugin
         return None
+```
 
-site-packages/OpenGL/__init__.py
 これらがimport時にFormatHandlerとして登録される。
+
+```py
+# site-packages/OpenGL/__init__.py
 FormatHandler( 'none', 'OpenGL.arrays.nones.NoneHandler', [ _bi+'.NoneType'],isOutput=False )
 
 if sys.version_info[0] < 3:
@@ -166,10 +178,14 @@ FormatHandler( 'buffer', 'OpenGL.arrays.buffers.BufferHandler', [
 ],isOutput=True )
 FormatHandler( 'vbo', 'OpenGL.arrays.vbo.VBOHandler', ['OpenGL.arrays.vbo.VBO','OpenGL_accelerate.vbo.VBO'],isOutput=False )
 FormatHandler( 'vbooffset', 'OpenGL.arrays.vbo.VBOOffsetHandler', ['OpenGL.arrays.vbo.VBOOffset','OpenGL_accelerate.vbo.VBOOffset'],isOutput=False )
+```
 
 numpyとか定義されているね。なるほど。
-(ctypes.c_float*len(vertices))(*vertices)はctypes.c_floatにマッチして、CtypesArrayHandlerによって処理される。
-一方、単なるPythonのlistであるverticesは、OpenGL.arrays.lists.ListHandlerによって処理されてNotImplementedErrorに落ちるのであった。
+
+`(ctypes.c_float*len(vertices))(*vertices)` は `ctypes.c_float` にマッチして、`CtypesArrayHandler` によって処理される。
+一方、単なるPythonのlistであるverticesは、`OpenGL.arrays.lists.ListHandler` によって処理されて `NotImplementedError` に落ちるのであった。
+
+```py
 class ListHandler( formathandler.FormatHandler ):
     @classmethod
     def asArray( cls, value, typeCode=None ):
@@ -181,5 +197,6 @@ class ListHandler( formathandler.FormatHandler ):
         """
         if typeCode is None:
             raise NotImplementedError( """Haven't implemented type-inference for lists yet""" )
+```
 
 確かにlistだと中身の型が決められんね。なるほど。

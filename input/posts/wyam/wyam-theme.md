@@ -31,7 +31,7 @@ input
 
 ASP.Net のtemplateエンジン、 [Razor](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-2.2) で構成されていて拡張子は、 `cshtml` 。
 
-ファイル名は、Blog Recipeが規定している。
+ファイル名は、[Blog Recipe](https://wyam.io/recipes/blog/overview)が規定している。
 
 サイトのルート(index), 各記事(post), 記事一覧(archive, tag), タグ一覧(tags)などがある。単純な例はこれ。
 
@@ -72,5 +72,7 @@ config.yml も `#theme BlogTemplate` とする。
 
 * 一覧をpageで分割
 * 記事内のTOC
+  * https://github.com/Wyamio/Wyam/issues/29
+  * https://blog.kabrt.cz/posts/2018-11-wyam-blog
 * https://konpa.github.io/devicon/
 * http://fizzed.com/oss/font-mfizz

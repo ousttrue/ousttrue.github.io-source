@@ -1,14 +1,15 @@
 Title: "WRLを使った最近のComプログラミング"
 Published: 2017-9-8
-Tags: []
+Tags: ["c++", "com"]
 ---
 
 古のATLのWindows8以降？版のWRLを使ってみる。
 
-IXMLHTTPRequest2を使うサンプルコードをベースにWRL化してみる。
+## IXMLHTTPRequest2を使うサンプルコードをベースにWRL化してみる。
 ComPtr
 何はともあれComPtrを取り入れる。
 Before
+```cpp
 #include <Msxml6.h>
 #pragma comment(lib, "msxml6.lib")
 
@@ -36,11 +37,13 @@ EXIT:
     }
     return 0;
 }
+```
 
-SAFERELEASEとgoto
+## SAFERELEASEとgoto
 ComPtrを取り入れてSAFERELEASEとgotoを除去しよう。
 After
 RAIIを取り入れて積極的にEarly Outできる(後始末が自動になったので)。
+```cpp
 #include <Msxml6.h>
 #pragma comment(lib, "msxml6.lib")
 #include <wrl/client.h>
@@ -74,11 +77,14 @@ int main(int, char **)
 
     return 0;
 }
+```
 
-IUnknown実装とComPtr初期化
+## IUnknown実装とComPtr初期化
 Callbackの定義等で自らComオブジェクトを定義する場合がある。
 IXMLHTTPRequest2Callbackを実装する例。
 Before
+
+```cpp
 class CCallback :public IXMLHTTPRequest2Callback
 {
     ULONG m_cRef=1;
@@ -173,6 +179,7 @@ public:
         return E_NOTIMPL;
     }
 };
+```
 
 IUnknownの実装(AddRef, Release, QueryInterface)が定型コードである
 
@@ -180,17 +187,22 @@ newしたときにリファレンスカウントが1であること、AddRef, Re
 QueryInterfaceを正しく実装する(あとでインタフェースを増減させたときに更新を忘れたりする)
 
 ComPtrの初期化が不穏
+```cpp
 Microsoft::WRL::ComPtr<CCallback> pCallback;
 // RefCount=1のインスタンスを内部ポインタ(&演算子)に渡す
 *((CCallback**)&pCallback)=new CCallback(); 
+```
 
 または、
+```cpp
 Microsoft::WRL::ComPtr<CCallback> pCallback(new CCallback); // 1+1はRefCount=2
 pCallback.Get()->Release(); // 1に減らす
+```
 
 のようなあからさまに不穏なコードを書かなければならない。
 間違いの元である。
 After
+```cpp
 #include <wrl/implements.h>
 class CCallback :
     public Microsoft::WRL::RuntimeClass<
@@ -208,16 +220,22 @@ public:
     // IXMLHTTPRequest2Callback
     // 省略
 };
+```
 
 とすることでIUnknownの実装をWRL::RuntimeClassに任せることができる。
 また、newによる初期化を禁止されるので、newではなくWRL::Makeを使う。
+```
 error C2248: 'Microsoft::WRL::Details::DontUseNewUseMake::operator new': private メンバー (クラス 'Microsoft::WRL::Details::DontUseNewUseMake' で宣言されている) にアクセスできません。
+```
 
+```cpp
 Microsoft::WRL::ComPtr<CCallback> pCallback=Microsoft::WRL::Make<CCallback>();
+```
 
-MakeAndInitialize 初期化メソッド
+## MakeAndInitialize 初期化メソッド
 Makeよりこっちの方がCom風。
 RuntimeClassInitializeという名前のメンバ関数で初期化する。失敗した場合はS_OK以外を返す。
+```cpp
 class CCallback :
     public Microsoft::WRL::RuntimeClass<
     Microsoft::WRL::RuntimeClassFlags<Microsoft::WRL::ClassicCom>, IXMLHTTPRequest2Callback>
@@ -236,9 +254,12 @@ hr=Microsoft::WRL::MakeAndInitialize<CCallback>(&pCallback);
 if (FAILED(hr)) {
     return 2;
 }
+```
 
 MakeAndInitialize 初期化メソッド(引数)
 9つまでいける。
+
+```cpp
     STDMETHODIMP RuntimeClassInitialize(DWORD value)
     {
         return S_OK;
@@ -250,4 +271,4 @@ MakeAndInitialize 初期化メソッド(引数)
     if (FAILED(hr)) {
         return 2;
     }
-
+```

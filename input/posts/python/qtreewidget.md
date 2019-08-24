@@ -1,6 +1,6 @@
 Title: "PyQtのTreeWidget"
 Published: 2017-10-14
-Tags: []
+Tags: ["python", "qt"]
 ---
 
 QTreeWigetの使い方

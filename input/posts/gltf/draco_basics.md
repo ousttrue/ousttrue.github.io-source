@@ -1,6 +1,6 @@
 Title: "dracoの基本"
 Published: 2017-12-12
-Tags: []
+Tags: ["gltf"]
 ---
 
 Googleのメッシュ圧縮ライブラリDracoの使い方を調査中。

@@ -5,5 +5,8 @@
 Settings[Keys.Host] = "ousttrue.github.io";
 Settings[BlogKeys.Title] = "三次元日誌(wyam)";
 Settings[BlogKeys.Description] = "programming とか";
+Settings[BlogKeys.IndexPageSize] = 5;
+// Settings[BlogKeys.IndexPaging] = true;
+Settings[BlogKeys.GenerateArchive] = true;
 
 // Add any pipeline customizations here

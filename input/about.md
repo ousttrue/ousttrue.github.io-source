@@ -15,6 +15,8 @@ Title: About Me
 
 ## https://github.com/ousttrue/
 
+* https://github.com/ousttrue/glglue (python) OpenGLとGUIイベントを結び付ける補助ライブラリ
+
 * https://github.com/ousttrue/msgpackpp (c++) msgpackのReadWrite
 * https://github.com/ousttrue/msgpack-rpc-asio (c++) msgpack-rpc の asio(headeronly版) を使った TCP実装
 

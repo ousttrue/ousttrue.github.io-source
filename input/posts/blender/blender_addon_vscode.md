@@ -1,30 +1,35 @@
 Title: "BlenderのAddOnを、VSCodeでデバッグする"
 Published: 2017-11-23
-Tags: []
+Tags: ["blender", "vscode"]
 ---
 
 VSCodeのリモートデバッグを利用してBlenderのPythonにデバッガをアタッチする。
 
-PTVSD
-
-https://pypi.python.org/pypi/ptvsd
+[PTVSD](https://pypi.python.org/pypi/ptvsd)
 
 VisualStudioのPTVS向けのリモートデバッグモジュール。VSCodeも対応しているらしい。
 リモート側でptvsdをimportして待ち受けて、VisualStudio側からtcp経由でアタッチする。
+
+```python
 import ptvsd
 ptvsd.enable_attach(secret = 'secret', ('0.0.0.0', 3000))
 
 if os != 'Windows':
     ptvsd.wait_for_attach() # スクリプトが終わらないようにブロックする
+```
 
+```
 +--------------+
 |remoteのpython|
 |         ptvsd|tcp:3000 <-- VisualStudio attach
 +--------------+
+```
 
 dos窓
+```
 > netstat -an | find "3000"
   TCP         0.0.0.0:3000           0.0.0.0:0              LISTENING
+```
 
 確かに待っている。
 TCP経由なのでptvsd側が、LinuxやRasPi、Blenderの組み込みPythonなどなんであってもアタッチできる。
@@ -42,14 +47,19 @@ PTVSDのバージョンが3.0.0でないと
 https://github.com/DonJayamanne/pythonVSCode/issues/1039
 
 ptvsdのインストール
+```
 > py -3.6 -m pip install ptvsd==3.0.0
+```
 
 testプロジェクト
+```
 > mkdir ptvsd_test
+```
 
 VSCodeでptvsd_testフォルダを開く。
 testスクリプト
 ptvsd_test/main.py
+```python
 import time
 
 # PTVSDを準備する
@@ -69,13 +79,18 @@ while True:
     print(i)
     i += 1
     time.sleep(1)
+```
 
+```
 >py -3.6 main.py
 wait_for_attach... ('0.0.0.0', 3000)
+```
 
 VSCodeから接続
 ptvsd_test/main.pyを開いてデバッグ開始。構成の追加でpythonを選択する。
+
 ptvsd_test/.vscode/launch.json
+```json
 {
     // IntelliSense を使用して利用可能な属性を学べます。
     // 既存の属性の説明をホバーして表示します。
@@ -110,6 +125,8 @@ ptvsd_test/.vscode/launch.json
         },
 
         // 以降省略
+}
+```
 
 デバッグの選択メニューでPython:Attachを選択。改めて開始。
 うまく接続できればデバッグコンソールにprintした内容が表示される。
@@ -121,9 +138,12 @@ https://github.com/Barbarbarbarian/Blender-VScode-Debugger
 これ。
 BlenderのPythonにptvsdをインストールする
 Blenderを起動して以下のスクリプトを実行する。
+
+```python
 import sys
 for x in sys.path:
     print(x)
+```
 
 適当なパスを選んでそこにptvsd-3.0.0をコピーする。
 ptvsd-3.0.0.zipをダウンロード。
@@ -138,8 +158,11 @@ Save - User Settings
 実行してみる
 3DViewでspaceを押してConnect to Visual Studio Code Debuggerを選択。
 dos窓
+
+```
 > netstat -an | find "3000"
   TCP         0.0.0.0:3000           0.0.0.0:0              LISTENING
+```
 
 待っている。
 試しにAddOnを作ってみる
@@ -155,6 +178,8 @@ hello/__init__.pyを作成。
 https://docs.blender.org/manual/en/dev/advanced/scripting/addon_tutorial.html
 
 を参考に。
+
+```python
 bl_info = {
     "name": "Move X Axis",
     "category": "Object",
@@ -190,6 +215,7 @@ def unregister():
 # to test the add-on without having to install it.
 if __name__ == "__main__":
     register()
+```
 
 Blenderを再起動して、AddOnのチェックボックスを有効にする。
 3DViewでスペースを押してMove X by oneを実行してみる。
@@ -200,6 +226,7 @@ AddOnをステップ実行してみる
 VSCodeで構成を追加してRemoteDebuggerでアタッチ
 
 hello/.vscode/launch.json
+```json
         {
             "name": "Python: Attach",
             "type": "python",
@@ -210,15 +237,15 @@ hello/.vscode/launch.json
             "secret": "my_secret",
             "host": "localhost"
         },
-
+```
 
 VSCodeでexecute関数のscene=context.sceneにbreak pointをセットする
 3DViewでMove X by one
 
 
 うまくいった。
-Memo
+
+## Memo
 
 Blenderプロセスが生きていればいいのでptvsd.wait_for_attach()する必要はない
 Pythonのターンになるまで接続が処理されないので、VSCodeからアタッチした後AddOnを実行するまでVSCodeは待ち状態になる
-
