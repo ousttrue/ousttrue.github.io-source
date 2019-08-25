@@ -19,10 +19,13 @@ Tags: ["python", "opengl"]
 ついでなので、glglue をメンテナンスしてみた。
 twine 使った。なるほど。
 
-CreateWindow と OnMouseDown 等はこれに任せた
+CreateWindow と OnMouseDown 等はこれに任せた。
 
-### VBO ?
+### glBufferDataで躓いた
 
 * [PyOpenGLで描画。VBO周りの混乱](https://qiita.com/ousttrue/items/e343baabdbdd6b7891c4)
+* [PyOpenGLのglBufferDataにはどんなデータが渡せるのか](/posts/glbufferdata)
+* [pyOpenGLのglBufferData](https://qiita.com/ousttrue/items/44a119e62aea1f12c5af)
 
-見つけた。記事をメンテナンスする。
+調べ直して、記事をメンテナンスした。
+結局のところ、 `bytes` か `ctypes` が使える。

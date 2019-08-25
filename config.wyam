@@ -10,3 +10,4 @@ Settings[BlogKeys.IndexPageSize] = 5;
 Settings[BlogKeys.GenerateArchive] = true;
 
 // Add any pipeline customizations here
+System.Globalization.CultureInfo.DefaultThreadCurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("ja-JP");

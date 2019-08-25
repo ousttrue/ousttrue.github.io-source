@@ -1,10 +1,7 @@
-+++
-date = 2019-04-18T16:10:34+0900
-tags = ['clang', 'python', 'c++', 'dlang', 'com']
-draft = true
-+++
-
-# pythonモジュール clang で C++ ヘッダーを変換する
+Published: 2019-04-18T16:10:34+0900
+Tags: ['clang', 'python', 'c++', 'dlang', 'com']
+Title: pythonモジュール clang で C++ ヘッダーを変換する
+---
 
 `d3d11.h` を `d3d11.d` に変換したいのでやる。
 
@@ -61,3 +58,8 @@ http://andrestraks.github.io/BulletSharp/
 
 が clang で bullet のヘッダーを変換しているぽかったので、そこから調べた。
 
+## できたもの
+
+なんとなく動くものができた。
+
+https://github.com/ousttrue/pycpptool

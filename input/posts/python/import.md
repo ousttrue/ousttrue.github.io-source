@@ -1,19 +1,13 @@
-+++
-date = 2019-05-01T00:47:39+0900
-tags = ['python']
-+++
+Title: "pythonのmoduleとpackage周り"
+Published: 2019-05-01T00:47:39+0900
+Tags: ['python']
+---
 
-# pythonのmoduleとpackage周り
+`ImportError: attempted relative import with no known parent package`
 
 ## 相対Importの制限
 
-これ
-
-```
-ImportError: attempted relative import with no known parent package
-```
-
-* [[Python] importの躓きどころ https://qiita.com/ysk24ok/items/2711295d83218c699276]
+* [[Python] importの躓きどころ](https://qiita.com/ysk24ok/items/2711295d83218c699276)
 
 わいのやりたいことは実現不可能なのだな。
 packageの内部でちょっとしたテストをするコードを、

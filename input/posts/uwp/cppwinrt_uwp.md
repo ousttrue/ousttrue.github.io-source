@@ -1,25 +1,31 @@
 Title: "C++WinRTではじめるUWP"
 Published: 2017-9-14
-Tags: []
+Tags: ["c++", "uwp"]
 ---
 
 C++/CXを置き換えるよさげなライブラリC++WinRTを発見した。
 
 C++/CXの機能を純粋なC++(C++17とか新しめの)で実装したものらしく、WinRTのC++バインディングのような位置。
 C++/CXで
+
+```c++
 Windows::UI::Core::CoreWindow ^window;
+```
 
 のようなものを
+
+```c++
 #include <winrt/Windows.UI.Core.h>
 winrt::Windows::UI::Core::Core window;
+```
 
-のように置き換える。->じゃなくて.を使うスマートポインタで実装されている。
+のように置き換える。`-> `じゃなくて `.` を使うスマートポインタで実装されている。
 
-Migrating C++/CX source code to C++/WinRT
+* Migrating C++/CX source code to C++/WinRT
 
 C++/CXでasync, awaitな非同期を実装する道具だったPPLもうまく置き換えているようだ。
 
-Using C++ co-routines with C++/WinRT asynchronous methods
+* Using C++ co-routines with C++/WinRT asynchronous methods
 
 やってみる
 clone
@@ -30,6 +36,8 @@ C++WinRTはヘッダオンリーライブラリである。
 https://github.com/Microsoft/cppwinrt/tree/master/10.0.15063.0/Samples/CL
 
 をベース。
+
+```c++
 // main.cpp
 #pragma comment(lib, "windowsapp") 
 
@@ -41,9 +49,11 @@ int __stdcall wWinMain(HINSTANCE, HINSTANCE, PWSTR, int)
 
     return 0;
 }
+```
 
 あえてCMakeで。
 CMakeLists.txt
+```cmake
 CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 PROJECT(RendererToolkit) # .sln
 
@@ -72,11 +82,15 @@ ADD_EXECUTABLE(${PROJECTNAME} WIN32 ${SRCS})
 TARGET_INCLUDE_DIRECTORIES(${PROJECTNAME} PUBLIC
     ${SUBRENDERER_INCLUDE}
     )
+```
 
 UWPをターゲットにしたプロジェクトを生成する。
+
+```
 > mkdir build
 > cd build
 build> cmake.exe -DCMAKE_SYSTEM_NAME=WindowsStore -DCMAKE_SYSTEM_VERSION=10.0 -DCMAKE_C_FLAGS=/ZW /EHsc -G "Visual Studio 15 2017 Win64" ..
+```
 
 ビルドすると警告が出る。
 warning C4447: スレッド モデルのない 'main' シグネチャが見つかりました。'int main(Platform::Array<Platform::String^>^ args)' の使用を検討してください。
@@ -87,6 +101,8 @@ int __stdcall wWinMain(HINSTANCE, HINSTANCE, PWSTR, int)
 
 Debug - X64 - ローカルコンピューター でアプリが起動して、即終了することが確認できればよし。
 UWPの作法で空のAppを作ってみる
+
+```c++
 #pragma comment(lib, "windowsapp") 
 
 #include <winrt/Windows.ApplicationModel.Core.h>
@@ -140,6 +156,7 @@ int __stdcall wWinMain(HINSTANCE, HINSTANCE, PWSTR, int)
 
     winrt::Windows::ApplicationModel::Core::CoreApplication::Run(App());
 }
+```
 
 警告とは無関係に、実行に
 [Platform::MTAThread]かwinrt::init_apartment();のどちらかが必要？

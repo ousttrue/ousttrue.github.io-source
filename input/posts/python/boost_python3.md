@@ -1,11 +1,13 @@
 Title: "Boost.PythonのPython3でのstd::string、std::wstringのふるまい"
 Published: 2017-8-10
-Tags: []
+Tags: ["c++", "python"]
 ---
 
 ちょっと気になったので確認。
 
 Windows10(64bit) VisualStudio2017 + Python3.6
+
+```c++
 #define BOOST_PYTHON_STATIC_LIB  
 #include <boost/python.hpp>
 
@@ -40,9 +42,11 @@ BOOST_PYTHON_MODULE(StringSample)
     def("get_unicode", &get_unicode);
     def("set_unicode", &set_unicode);
 }
+```
 
 # coding: utf-8
 
+```python
 import StringSample
 
 StringSample.set_bytes("ascii")
@@ -69,7 +73,9 @@ print(StringSample.get_unicode())
 
 StringSample.set_unicode("日本語".encode('utf-8'))
 print(StringSample.get_unicode())
+```
 
+```
 ascii
 ascii
 ascii
@@ -79,5 +85,6 @@ ascii
 日本語
 日本語
 続行するには何かキーを押してください . . .
+```
 
 bytesはutf-8のバイト列と見なされるようだ。

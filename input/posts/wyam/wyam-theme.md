@@ -67,12 +67,28 @@ config.yml も `#theme BlogTemplate` とする。
 * scss(wyamが対応している)
 * highlight.js (phantom themeからコピー)
 * 旧記事を雑に復旧
+* locale https://wyam.io/docs/advanced/setting-the-culture
 
 ### ToDo
 
+* 404頁
 * 一覧をpageで分割
 * 記事内のTOC
   * https://github.com/Wyamio/Wyam/issues/29
   * https://blog.kabrt.cz/posts/2018-11-wyam-blog
 * https://konpa.github.io/devicon/
 * http://fizzed.com/oss/font-mfizz
+* https://www.digitaltapestry.net/posts/poshwyam
+
+## 動作
+
+複数のパイプラインが登録してあって(Recipe)、ひとつずつ実行する
+
+```
+public IReadOnlyList<IDocument> Execute(ExecutionContext context, IEnumerable<IModule> modules, ImmutableArray<IDocument> inputDocuments
+
+foreach(var pipeline in pipelines)
+{
+  ExecutionPipeline.Execute
+}
+```
